@@ -15,7 +15,7 @@ import br.pro.oliveira.drogaria.dao.EstadoDAO;
 import br.pro.oliveira.drogaria.domain.Cidade;
 import br.pro.oliveira.drogaria.domain.Estado;
 
-@SuppressWarnings("serial")
+
 @ManagedBean
 @ViewScoped
 public class CidadeBean implements Serializable {
