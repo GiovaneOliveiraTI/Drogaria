@@ -11,11 +11,11 @@
 <h:body>
 	<p:growl id="mensagem" />
 
-	<h:form id="formulario" >
+	<h:form id="formulario">
 		<p:panel header="Produtos">
-			<p:dataTable id="tabelaProduto" emptyMessage="Nenhum registro encontrado."
-				paginator="true" value="#{vendaBean.produtos}" var="produto"
-				rows="3">
+			<p:dataTable id="tabelaProduto"
+				emptyMessage="Nenhum registro encontrado." paginator="true"
+				value="#{vendaBean.produtos}" var="produto" rows="3">
 
 				<p:column headerText="Descrição" filterBy="#{produto.descricao}"
 					sortBy="#{produto.descricao}">
@@ -39,23 +39,25 @@
 				</p:column>
 
 				<p:column headerText="Opções">
-					<p:commandButton icon="ui-icon-plus" actionListener="#{vendaBean.adicionar}" 
-					update=" :formulario:tabelaCesta">
-					<f:attribute name="produtoSelecionado" value="#{produto}" />
+					<p:commandButton icon="ui-icon-plus"
+						actionListener="#{vendaBean.adicionar}"
+						update=" :formulario:tabelaCesta  :formulario:painelFinalizacao">
+						<f:attribute name="produtoSelecionado" value="#{produto}" />
 					</p:commandButton>
 				</p:column>
 			</p:dataTable>
 		</p:panel>
 
 		<p:panel header="Carrinho de Compras">
-		
-		<p:dataTable id="tabelaCesta" emptyMessage="Nenhum registro encontrado."
-				paginator="true" value="#{vendaBean.itensVenda}" var="itemVenda"
-				rows="3">
 
-				<p:column headerText="Descrição" filterBy="#{itemVenda.produto.descricao}"
+			<p:dataTable id="tabelaCesta"
+				emptyMessage="Nenhum registro encontrado." paginator="true"
+				value="#{vendaBean.itensVenda}" var="itemVenda" rows="3">
+
+				<p:column headerText="Descrição"
+					filterBy="#{itemVenda.produto.descricao}"
 					sortBy="#{produto.descricao}">
-					<h:outputText value="#{produto.descricao}" />
+					<h:outputText value="#{produto.descricao }" />
 				</p:column>
 
 				<p:column headerText="Preço un.">
@@ -68,28 +70,33 @@
 					<h:outputText value="#{itemVenda.quantidade}" />
 				</p:column>
 
-                 <p:column headerText="Preço Parcial">
+				<p:column headerText="Preço Parcial">
 					<h:outputText value="#{itemVenda.precoParcial}">
-					<f:convertNumber locale="pt_BR" minFractionDigits="2" />
+						<f:convertNumber locale="pt_BR" minFractionDigits="2" />
 
-					 </h:outputText>
+					</h:outputText>
 				</p:column>
-                 
+
 				<p:column headerText="Opções">
-						<p:commandButton icon="ui-icon-minus" actionListener="#{vendaBean.retirar}" 
-					update=" :formulario:tabelaCesta">
-					<f:attribute name="produtoSelecionado" value="#{produto}" />
+					<p:commandButton icon="ui-icon-minus"
+						actionListener="#{vendaBean.retirar}"
+						update=" :formulario:tabelaCesta :formulario:painelFinalizacao ">
+						<f:attribute name="itemSelecionado" value="#{itemVenda}" />
 					</p:commandButton>
-				
-					
-					
-					
+
 				</p:column>
 			</p:dataTable>
-		
+
 		</p:panel>
 
-		<p:panel header="Total">
+		<p:panel header="Finalização">
+			<h:panelGrid id="painelFinalizacao" columns="3">
+				<p:outputLabel value="Total:" />
+				<h:outputText value="#{vendaBean.venda.precoTotal}" >
+				<f:convertNumber locale="pt_BR" minFractionDigits="2" />
+				</h:outputText>
+				<p:commandButton value="Finalizar" />
+			</h:panelGrid>
 		</p:panel>
 	</h:form>
 </h:body>
